@@ -3,7 +3,7 @@ window.docSpec = (function () {
      * 删除属性
      */
     var delAttr = {
-        caption: '删除',
+        caption: 'Delete',
         action: Xonomy.deleteAttribute
     };
 
@@ -11,7 +11,7 @@ window.docSpec = (function () {
      * 删除元素
      */
     var delEle = {
-        caption: '删除',
+        caption: 'Delete',
         action: Xonomy.deleteElement
     };
 
@@ -23,7 +23,7 @@ window.docSpec = (function () {
         var result = [];
         if (desc) {
             result.push({
-                caption: '提示: '+desc
+                caption: 'Tip: '+desc
             });
         }
         if (!noDel) {
@@ -33,8 +33,8 @@ window.docSpec = (function () {
     };
 
     var boolParameters = [
-        {caption: '是', value: 'true'},
-        {caption: '否', value: 'false'}
+        {caption: 'true', value: 'true'},
+        {caption: 'false', value: 'false'}
     ];
 
     /**
@@ -74,7 +74,7 @@ window.docSpec = (function () {
         if (isNaN(result) || result+'' !== value) {
             Xonomy.warnings.push({
                 htmlID: ele.htmlID,
-                text: '必须是整数'
+                text: 'must be int'
             });
             return false;
         }
@@ -83,15 +83,15 @@ window.docSpec = (function () {
 
     var getConditionAttr = function () {
         return {
-            displayName: '条件',
-            menu: attrMenus("条件不满足时不会显示,格式'条件名:条件值'"),
+            displayName: 'Condition',
+            menu: attrMenus("format: 'conditon name:condition data'"),
             asker: Xonomy.askString,
         };
     };
 
     var getStyleAttr = function () {
         return {
-            displayName: '样式',
+            displayName: 'Style',
             menu: attrMenus(),
             asker: Xonomy.askString,
         };
@@ -107,87 +107,88 @@ window.docSpec = (function () {
     return {
         elements: {
             'menu': {
-                displayName: '菜单',
+                displayName: 'Menu',
                 attributes: {
                     'condition': {
-                        displayName: '条件',
-                        menu: attrMenus("条件不满足时无法进入菜单,格式'条件名:条件值'"),
+                        displayName: 'Condition',
+                        menu: attrMenus("Join menu will be denied when condition is not satisfied,format: 'conditon name:condition data'"),
                         asker: Xonomy.askString,
                     },
                     'enable': {
-                        displayName: '是否启用',
-                        menu: attrMenus('默认true'),
+                        displayName: 'whether enabled',
+                        menu: attrMenus('default is true'),
                         asker: Xonomy.askPicklist,
                         askerParameter: boolParameters,
                     },
                     'title': {
-                        displayName: '标题',
+                        displayName: 'Title',
                         menu: attrMenus(),
                         asker: Xonomy.askString,
                     },
                     'pageContext': {
-                        displayName: '页面上下文',
-                        menu: attrMenus("格式'页面变量处理器名[:页面变量处理器数据]'"),
+                        displayName: 'Page Context',
+                        menu: attrMenus("format: 'page param handler name[:page param handler data]'"),
                         asker: Xonomy.askString,
                     },
                     'listContext': {
-                        displayName: '列表上下文',
-                        menu: attrMenus("格式'列表变量处理器名[:列表变量处理器数据]'"),
+                        displayName: 'List Context',
+                        menu: attrMenus("format: 'list param handler name[:list param handler data]'"),
                         asker: Xonomy.askString,
                     }
                 },
                 menu: [
                     {
-                        caption: '添加属性',
+                        caption: 'add attribute',
                         menu: [
-                            addAttr('是否启用', 'enable', 'true'),
-                            addAttr('标题', 'title', ''),
-                            addAttr('页面上下文', 'pageContext', ''),
-                            addAttr('列表上下文', 'listContext', ''),
+                            addAttr('condition', 'condition', ''),
+                            addAttr('whether enabled', 'enable', 'true'),
+                            addAttr('title', 'title', ''),
+                            addAttr('page context', 'pageContext', ''),
+                            addAttr('list context', 'listContext', ''),
                         ]
                     },
                     {
-                        caption: '添加子元素',
+                        caption: 'add sub element',
                         menu: [
-                            addChildEle('添加行', '<line/>'),
-                            addChildEle('添加列表', '<list/>'),
-                            addChildEle('添加导入', '<import path=""/>'),
+                            addChildEle('add line', '<line/>'),
+                            addChildEle('add list', '<list/>'),
+                            addChildEle('add import', '<import path=""/>'),
                         ]
                     },
 
                 ]
             },
             'line': {
-                displayName: '行',
+                displayName: 'line',
                 attributes: {
                     'condition': getConditionAttr(),
                     'description': {
-                        displayName: '描述',
-                        menu: attrMenus('多行以\\n分隔'),
+                        displayName: 'description',
+                        menu: attrMenus('separate multiple lines with \\n'),
                         asker: Xonomy.askString,
                     },
                     'sub': {
-                        displayName: '所属子菜单',
-                        menu: attrMenus('默认无所属'),
+                        displayName: 'the sub menu belong to',
+                        menu: attrMenus('default no belong'),
                         asker: Xonomy.askString,
                     }
                 },
                 menu: [
                     {
-                        caption: '添加属性',
+                        caption: 'add attribute',
                         menu: [
-                            addAttr('条件', 'condition', ''),
-                            addAttr('描述', 'description', ''),
-                            addAttr('所属子菜单', 'sub', ''),
+                            addAttr('condition', 'condition', ''),
+                            addAttr('description', 'description', ''),
+                            addAttr('the sub menu belong to', 'sub', ''),
                         ]
                     },
                     {
-                        caption: '添加子元素',
+                        caption: 'add sub element',
                         menu: [
-                            addChildEle('添加文本', '<text/>'),
-                            addChildEle('添加按钮', '<button cmd=""/>'),
-                            addChildEle('添加输入', '<input name=""/>'),
-                            addChildEle('添加子菜单', '<sub/>'),
+                            addChildEle('add text', '<text/>'),
+                            addChildEle('add button', '<button cmd=""/>'),
+                            addChildEle('add input', '<input name=""/>'),
+                            addChildEle('add sub menu', '<sub/>'),
                         ]
                     },
                     delEle,
@@ -196,34 +197,34 @@ window.docSpec = (function () {
                 collapsed: checkCollapsed,
             },
             'list': {
-                displayName: '列表',
+                displayName: 'list',
                 attributes: {
                     'condition': getConditionAttr(),
                     'size': {
-                        displayName: '大小',
-                        menu: attrMenus('列表大小,必须大于等于1'),
+                        displayName: 'size',
+                        menu: attrMenus('list size,>=1'),
                         asker: Xonomy.askString,
                     },
                     'sub': {
-                        displayName: '所属子菜单',
-                        menu: attrMenus('默认无'),
+                        displayName: 'the sub menu belong to',
+                        menu: attrMenus('default no belong'),
                         asker: Xonomy.askString,
                     }
                 },
                 menu: [
                     {
-                        caption: '添加属性',
+                        caption: 'add attribute',
                         menu: [
-                            addAttr('条件', 'condition', ''),
-                            addAttr('大小', 'size', '10'),
-                            addAttr('所属子菜单', 'sub', ''),
+                            addAttr('condition', 'condition', ''),
+                            addAttr('size', 'size', '10'),
+                            addAttr('the sub menu belong to', 'sub', ''),
                         ]
                     },
                     {
-                        caption: '添加子元素',
+                        caption: 'add sub element',
                         menu: [
-                            addChildEle('添加行', '<line/>'),
-                            addChildEle('添加导入', '<import path=""/>'),
+                            addChildEle('add line', '<line/>'),
+                            addChildEle('add import', '<import path=""/>'),
                         ]
                     },
                     delEle,
@@ -232,20 +233,20 @@ window.docSpec = (function () {
                 collapsed: checkCollapsed,
             },
             'import': {
-                displayName: '导入',
+                displayName: 'import',
                 attributes: {
                     'condition': getConditionAttr(),
                     'path': {
-                        displayName: '菜单路径',
-                        menu: attrMenus("导入的菜单路径,格式'[命名空间:]菜单路径'", true),
+                        displayName: 'menu path',
+                        menu: attrMenus("imported menu path,format: '[namespace:]menu path'", true),
                         asker: Xonomy.askString,
                     },
                 },
                 menu: [
                     {
-                        caption: '添加属性',
+                        caption: 'add attribute',
                         menu: [
-                            addAttr('条件', 'condition', ''),
+                            addAttr('condition', 'condition', ''),
                         ]
                     },
                     delEle,
@@ -254,17 +255,17 @@ window.docSpec = (function () {
                 collapsed: checkCollapsed,
             },
             'text': {
-                displayName: '文本',
+                displayName: 'text',
                 attributes: {
                     'condition': getConditionAttr(),
                     'style': getStyleAttr(),
                 },
                 menu: [
                     {
-                        caption: '添加属性',
+                        caption: 'add attribute',
                         menu: [
-                            addAttr('条件', 'condition', ''),
-                            addAttr('样式', 'style', ''),
+                            addAttr('condition', 'condition', ''),
+                            addAttr('style', 'style', ''),
                         ]
                     },
                     delEle,
@@ -275,35 +276,35 @@ window.docSpec = (function () {
                 asker: Xonomy.askString,
             },
             'button': {
-                displayName: '按钮',
+                displayName: 'button',
                 attributes: {
                     'condition': getConditionAttr(),
                     'style': getStyleAttr(),
                     'cmd': {
-                        displayName: '命令',
-                        menu: attrMenus("默认为空,将不会执行命令"),
+                        displayName: 'command',
+                        menu: attrMenus("default is empty,will not execute command"),
                         asker: Xonomy.askString,
                     },
                     'mode': {
-                        displayName: '模式',
-                        menu: attrMenus("执行按钮后的动作,默认为stay"),
+                        displayName: 'mode',
+                        menu: attrMenus("the action after executing,default is stay"),
                         asker: Xonomy.askPicklist,
                         askerParameter: [
-                            {caption: '退出菜单', value: 'exit'},
-                            {caption: '返回菜单', value: 'back'},
-                            {caption: '无操作', value: 'stay'},
-                            {caption: '刷新页面', value: 'refresh'},
+                            {caption: 'exit menu', value: 'exit'},
+                            {caption: 'back menu', value: 'back'},
+                            {caption: 'no action', value: 'stay'},
+                            {caption: 'refresh page', value: 'refresh'},
                         ]
                     }
                 },
                 menu: [
                     {
-                        caption: '添加属性',
+                        caption: 'add attribute',
                         menu: [
-                            addAttr('条件', 'condition', ''),
-                            addAttr('样式', 'style', ''),
-                            addAttr('命令', 'cmd', ''),
-                            addAttr('模式', 'mode', 'stay'),
+                            addAttr('condition', 'condition', ''),
+                            addAttr('style', 'style', ''),
+                            addAttr('command', 'cmd', ''),
+                            addAttr('mode', 'mode', 'stay'),
                         ]
                     },
                     delEle,
@@ -314,39 +315,39 @@ window.docSpec = (function () {
                 asker: Xonomy.askString,
             },
             'input': {
-                displayName: '输入',
+                displayName: 'input',
                 attributes: {
                     'condition': getConditionAttr(),
                     'style': getStyleAttr(),
                     'name': {
-                        displayName: '变量名',
+                        displayName: 'input param name',
                         menu: attrMenus(),
                         asker: Xonomy.askString,
                     },
                     'type': {
-                        displayName: '类型',
-                        menu: attrMenus("变量类型限制"),
+                        displayName: 'type',
+                        menu: attrMenus("param type limit"),
                         asker: Xonomy.askPicklist,
                         askerParameter: [
-                            {caption: '整数', value: 'integer'},
-                            {caption: '实数', value: 'real'},
-                            {caption: '字符串', value: 'string'},
+                            {caption: 'integer', value: 'integer'},
+                            {caption: 'real', value: 'real'},
+                            {caption: 'string', value: 'string'},
                         ]
                     },
                     'default': {
-                        displayName: '默认值',
+                        displayName: 'default value',
                         menu: attrMenus(),
                         asker: Xonomy.askString,
                     },
                 },
                 menu: [
                     {
-                        caption: '添加属性',
+                        caption: 'add attribute',
                         menu: [
-                            addAttr('条件', 'condition', ''),
-                            addAttr('样式', 'style', ''),
-                            addAttr('类型', 'type', 'string'),
-                            addAttr('默认值', 'default', ''),
+                            addAttr('condition', 'condition', ''),
+                            addAttr('style', 'style', ''),
+                            addAttr('type', 'type', 'string'),
+                            addAttr('default value', 'default', ''),
                         ]
                     },
                     delEle,
@@ -355,39 +356,39 @@ window.docSpec = (function () {
                 canDropTo: ['line'],
             },
             'sub': {
-                displayName: '子菜单',
+                displayName: 'sub menu',
                 attributes: {
                     'condition': getConditionAttr(),
                     'style': getStyleAttr(),
                     'name': {
-                        displayName: '子菜单名',
-                        menu: attrMenus('默认为空,空也是正常的值(不能包含@)'),
+                        displayName: 'sub menu name',
+                        menu: attrMenus('default is empty,empty is a normal value too(can not contain @)'),
                         asker: Xonomy.askString,
                     },
                     'default': {
-                        displayName: '初始状态',
-                        menu: attrMenus('默认关闭'),
+                        displayName: 'init status',
+                        menu: attrMenus('default is closed'),
                         asker: Xonomy.askPicklist,
                         askerParameter: [
-                            {caption: '开启', value: 'open'},
-                            {caption: '关闭', value: 'closed'},
+                            {caption: 'opend', value: 'open'},
+                            {caption: 'closed', value: 'closed'},
                         ]
                     },
                     'group': {
-                        displayName: '所属子菜单组',
-                        menu: attrMenus('默认无组'),
+                        displayName: 'the sub menu group belong to',
+                        menu: attrMenus('default is no group'),
                         asker: Xonomy.askString,
                     },
                 },
                 menu: [
                     {
-                        caption: '添加属性',
+                        caption: 'add attribute',
                         menu: [
-                            addAttr('条件', 'condition', ''),
-                            addAttr('样式', 'style', ''),
-                            addAttr('子菜单名', 'name', ''),
-                            addAttr('初始状态', 'default', 'closed'),
-                            addAttr('所属子菜单组', 'group', ''),
+                            addAttr('condition', 'condition', ''),
+                            addAttr('style', 'style', ''),
+                            addAttr('sub menu name', 'name', ''),
+                            addAttr('init status', 'default', 'closed'),
+                            addAttr('the sub menu group belong to', 'group', ''),
                         ]
                     },
                     delEle,
@@ -418,7 +419,7 @@ window.docSpec = (function () {
                         if (size < 1) {
                             Xonomy.warnings.push({
                                 htmlID: sizeAttr.htmlID,
-                                text: '必须大于等于1'
+                                text: 'must >=1'
                             });
                             continue;
                         }
