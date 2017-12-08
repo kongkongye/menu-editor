@@ -3,7 +3,7 @@ window.docSpec = (function () {
      * 删除属性
      */
     var delAttr = {
-        caption: 'Delete',
+        caption: 'delete',
         action: Xonomy.deleteAttribute
     };
 
@@ -11,7 +11,7 @@ window.docSpec = (function () {
      * 删除元素
      */
     var delEle = {
-        caption: 'Delete',
+        caption: 'delete',
         action: Xonomy.deleteElement
     };
 
@@ -23,7 +23,7 @@ window.docSpec = (function () {
         var result = [];
         if (desc) {
             result.push({
-                caption: 'Tip: '+desc
+                caption: 'tip: '+desc
             });
         }
         if (!noDel) {
@@ -83,15 +83,15 @@ window.docSpec = (function () {
 
     var getConditionAttr = function () {
         return {
-            displayName: 'Condition',
-            menu: attrMenus("format: 'conditon name:condition data'"),
+            displayName: 'condition',
+            menu: attrMenus("element will not show when condition is not satisfied.format: 'conditon name:condition data'"),
             asker: Xonomy.askString,
         };
     };
 
     var getStyleAttr = function () {
         return {
-            displayName: 'Style',
+            displayName: 'style',
             menu: attrMenus(),
             asker: Xonomy.askString,
         };
@@ -107,31 +107,31 @@ window.docSpec = (function () {
     return {
         elements: {
             'menu': {
-                displayName: 'Menu',
+                displayName: 'menu',
                 attributes: {
                     'condition': {
-                        displayName: 'Condition',
-                        menu: attrMenus("Join menu will be denied when condition is not satisfied,format: 'conditon name:condition data'"),
+                        displayName: 'condition',
+                        menu: attrMenus("joining menu will be denied when condition is not satisfied.format: 'conditon name:condition data'"),
                         asker: Xonomy.askString,
                     },
                     'enable': {
-                        displayName: 'whether enabled',
+                        displayName: 'enabled',
                         menu: attrMenus('default is true'),
                         asker: Xonomy.askPicklist,
                         askerParameter: boolParameters,
                     },
                     'title': {
-                        displayName: 'Title',
+                        displayName: 'title',
                         menu: attrMenus(),
                         asker: Xonomy.askString,
                     },
                     'pageContext': {
-                        displayName: 'Page Context',
+                        displayName: 'page context',
                         menu: attrMenus("format: 'page param handler name[:page param handler data]'"),
                         asker: Xonomy.askString,
                     },
                     'listContext': {
-                        displayName: 'List Context',
+                        displayName: 'list context',
                         menu: attrMenus("format: 'list param handler name[:list param handler data]'"),
                         asker: Xonomy.askString,
                     }
@@ -141,7 +141,7 @@ window.docSpec = (function () {
                         caption: 'add attribute',
                         menu: [
                             addAttr('condition', 'condition', ''),
-                            addAttr('whether enabled', 'enable', 'true'),
+                            addAttr('enabled', 'enable', 'true'),
                             addAttr('title', 'title', ''),
                             addAttr('page context', 'pageContext', ''),
                             addAttr('list context', 'listContext', ''),
@@ -164,12 +164,12 @@ window.docSpec = (function () {
                     'condition': getConditionAttr(),
                     'description': {
                         displayName: 'description',
-                        menu: attrMenus('separate multiple lines with \\n'),
+                        menu: attrMenus('multiple lines is separated by \\n'),
                         asker: Xonomy.askString,
                     },
                     'sub': {
-                        displayName: 'the sub menu belong to',
-                        menu: attrMenus('default no belong'),
+                        displayName: 'sub',
+                        menu: attrMenus('no belong by default'),
                         asker: Xonomy.askString,
                     }
                 },
@@ -179,7 +179,7 @@ window.docSpec = (function () {
                         menu: [
                             addAttr('condition', 'condition', ''),
                             addAttr('description', 'description', ''),
-                            addAttr('the sub menu belong to', 'sub', ''),
+                            addAttr('sub', 'sub', ''),
                         ]
                     },
                     {
@@ -188,7 +188,7 @@ window.docSpec = (function () {
                             addChildEle('add text', '<text/>'),
                             addChildEle('add button', '<button cmd=""/>'),
                             addChildEle('add input', '<input name=""/>'),
-                            addChildEle('add sub menu', '<sub/>'),
+                            addChildEle('add sub', '<sub/>'),
                         ]
                     },
                     delEle,
@@ -206,8 +206,8 @@ window.docSpec = (function () {
                         asker: Xonomy.askString,
                     },
                     'sub': {
-                        displayName: 'the sub menu belong to',
-                        menu: attrMenus('default no belong'),
+                        displayName: 'sub',
+                        menu: attrMenus('no belong by default'),
                         asker: Xonomy.askString,
                     }
                 },
@@ -217,7 +217,7 @@ window.docSpec = (function () {
                         menu: [
                             addAttr('condition', 'condition', ''),
                             addAttr('size', 'size', '10'),
-                            addAttr('the sub menu belong to', 'sub', ''),
+                            addAttr('sub', 'sub', ''),
                         ]
                     },
                     {
@@ -237,8 +237,8 @@ window.docSpec = (function () {
                 attributes: {
                     'condition': getConditionAttr(),
                     'path': {
-                        displayName: 'menu path',
-                        menu: attrMenus("imported menu path,format: '[namespace:]menu path'", true),
+                        displayName: 'path',
+                        menu: attrMenus("imported menu path,format: '[namespace:]path'", true),
                         asker: Xonomy.askString,
                     },
                 },
@@ -320,7 +320,7 @@ window.docSpec = (function () {
                     'condition': getConditionAttr(),
                     'style': getStyleAttr(),
                     'name': {
-                        displayName: 'input param name',
+                        displayName: 'name',
                         menu: attrMenus(),
                         asker: Xonomy.askString,
                     },
@@ -344,6 +344,7 @@ window.docSpec = (function () {
                     {
                         caption: 'add attribute',
                         menu: [
+                            addAttr('name', 'name', ''),
                             addAttr('condition', 'condition', ''),
                             addAttr('style', 'style', ''),
                             addAttr('type', 'type', 'string'),
@@ -356,18 +357,18 @@ window.docSpec = (function () {
                 canDropTo: ['line'],
             },
             'sub': {
-                displayName: 'sub menu',
+                displayName: 'sub',
                 attributes: {
                     'condition': getConditionAttr(),
                     'style': getStyleAttr(),
                     'name': {
-                        displayName: 'sub menu name',
-                        menu: attrMenus('default is empty,empty is a normal value too(can not contain @)'),
+                        displayName: 'name',
+                        menu: attrMenus('default is empty,empty is a normal value too(can not contain @@)'),
                         asker: Xonomy.askString,
                     },
                     'default': {
-                        displayName: 'init status',
-                        menu: attrMenus('default is closed'),
+                        displayName: 'status',
+                        menu: attrMenus('init status,default is closed'),
                         asker: Xonomy.askPicklist,
                         askerParameter: [
                             {caption: 'opend', value: 'open'},
@@ -375,8 +376,8 @@ window.docSpec = (function () {
                         ]
                     },
                     'group': {
-                        displayName: 'the sub menu group belong to',
-                        menu: attrMenus('default is no group'),
+                        displayName: 'group',
+                        menu: attrMenus('no group by default'),
                         asker: Xonomy.askString,
                     },
                 },
@@ -386,9 +387,9 @@ window.docSpec = (function () {
                         menu: [
                             addAttr('condition', 'condition', ''),
                             addAttr('style', 'style', ''),
-                            addAttr('sub menu name', 'name', ''),
-                            addAttr('init status', 'default', 'closed'),
-                            addAttr('the sub menu group belong to', 'group', ''),
+                            addAttr('name', 'name', ''),
+                            addAttr('status', 'default', 'closed'),
+                            addAttr('group', 'group', ''),
                         ]
                     },
                     delEle,
