@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+    <link rel="stylesheet" type="text/css" href="xonomy.min.css">
+    <link rel="stylesheet" type="text/css" href="menu.min.css">
+    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="xonomy.min.js"></script>
+    <script src="spec.min.js"></script>
+    <script src="menu.min.js"></script>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1 class="title" style="display: inline-block;">菜单配置网页编辑器</h1>
+        <a href="http://menu.kongkongye.com" target="_blank">项目主页=&gt;</a>
+    </div>
+
+    <button id="toggle" class="btn">切换样式</button>
+
+    <div class="center" style="width: 100%;">
+        <div id="container" class="panel"></div>
+        <br/>
+    </div>
+
+    <div class="center" style="width: 100%;">
+        <div id="importContainer" class="panel">
+            <textarea id="in" class="input input-area" placeholder="菜单xml配置文件内容"></textarea>
+            <br/>
+            <button id="import" class="btn">导入</button>
+        </div>
+    </div>
+
+    <div class="center" style="width: 100%;margin-bottom: 20px;">
+        <div id="exportContainer" class="panel">
+            <textarea id="out" class="input input-area" readonly></textarea>
+            <br/>
+            <button id="export" class="btn" title="">导出</button>
+            <button id="select" class="btn" title="全选后可按Ctrl+C复制">全选</button>
+        </div>
+    </div>
+
+    <script>
+        $("#import").click(function () {
+            try {
+                var value = $("#in").val();
+                var xmlDocument = $.parseXML(value);
+                //修正内容
+                Menu.importFix(xmlDocument, xmlDocument);
+                //渲染
+                Xonomy.render(xmlDocument, $("#container")[0], docSpec);
+            } catch (e) {
+                console.log(e);
+                alert('配置有误!');
+            }
+        });
+        $("#export").click(function () {
+            var value = Xonomy.harvest();
+            var xmlDocument = $.parseXML(value);
+            //修正内容
+            Menu.exportFix(xmlDocument);
+            //打印
+            $("#out").text(Menu.formatXml(Menu.convertXmlDocumentToString(xmlDocument)));
+
+            //启用一些按钮
+            $("#select").attr("disabled", false);
+        });
+        $("#select").click(function () {
+            $("#out").select();
+        });
+        $("#toggle").click(function () {
+            Menu.toggleMode();
+        });
+
+        $(function () {
+            $("#in").val("<menu></menu>");
+            $("#import").click();
+        });
+
+        var origin = docSpec.onchange;
+        docSpec.onchange = function () {
+            //先调用原来的
+            origin();
+
+            //禁用一些按钮
+            $("#select").attr("disabled", true);
+        }
+    </script>
+
+    <div id="main-logo">
+        <span>©2017</span>
+        <span>by</span>
+        <a href="http://www.kongkongye.com" target="_blank">空空叶</a>
+    </div>
+</body>
+</html>
