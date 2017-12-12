@@ -122,7 +122,7 @@ window.docSpec = (function () {
                     },
                     'title': {
                         displayName: 'title',
-                        menu: attrMenus(),
+                        menu: attrMenus('title', true),
                         asker: Xonomy.askString,
                     },
                     'pageContext': {
