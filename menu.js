@@ -51,7 +51,7 @@ window.Menu = (function () {
         });
 
         return formatted;
-    }
+    };
 
     /**
      * 导入修正
@@ -108,6 +108,51 @@ window.Menu = (function () {
                 exportFix(node.childNodes[i]);
             }
         }
+    };
+
+    $("#import").click(function () {
+        try {
+            var value = $("#in").val();
+            var xmlDocument = $.parseXML(value);
+            //修正内容
+            Menu.importFix(xmlDocument, xmlDocument);
+            //渲染
+            Xonomy.render(xmlDocument, $("#container")[0], docSpec);
+        } catch (e) {
+            console.log(e);
+            alert(use(10));
+        }
+    });
+    $("#export").click(function () {
+        var value = Xonomy.harvest();
+        var xmlDocument = $.parseXML(value);
+        //修正内容
+        Menu.exportFix(xmlDocument);
+        //打印
+        $("#out").text(Menu.formatXml(Menu.convertXmlDocumentToString(xmlDocument)));
+
+        //启用一些按钮
+        $("#select").attr("disabled", false);
+    });
+    $("#select").click(function () {
+        $("#out").select();
+    });
+    $("#toggle").click(function () {
+        Menu.toggleMode();
+    });
+
+    $(function () {
+        $("#in").val("<menu title=''></menu>");
+        $("#import").click();
+    });
+
+    var origin = docSpec.onchange;
+    docSpec.onchange = function () {
+        //先调用原来的
+        origin();
+
+        //禁用一些按钮
+        $("#select").attr("disabled", true);
     };
 
     return {

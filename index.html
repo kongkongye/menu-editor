@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 
     <link rel="stylesheet" type="text/css" href="xonomy.min.css">
-    <link rel="stylesheet" type="text/css" href="menu.min.css">
+    <link rel="stylesheet" type="text/css" href="menu.css">
     <script src="jquery.min.js"></script>
     <script src="xonomy.min.js"></script>
-    <script src="spec.min.js"></script>
-    <script src="menu.min.js"></script>
+    <script src="lang.js"></script>
 </head>
 <body>
     <div style="text-align: center;">
-        <h1 class="title" style="display: inline-block;">Menu Config Web Editor</h1>
-        <a href="http://menu.kongkongye.com" target="_blank">Project Website=&gt;</a>
+        <a id="toggleLang" href="javascript:void(0)" onclick="toggleLang()">&lt;=中文版</a>
+        <h1 id="title" class="title" style="display: inline-block;">Menu Config Web Editor</h1>
+        <a id="website" href="http://menu.kongkongye.com" target="_blank">Project Website=&gt;</a>
     </div>
 
     <button id="toggle" class="btn">Toggle Style</button>
@@ -41,57 +41,10 @@
         </div>
     </div>
 
-    <script>
-        $("#import").click(function () {
-            try {
-                var value = $("#in").val();
-                var xmlDocument = $.parseXML(value);
-                //修正内容
-                Menu.importFix(xmlDocument, xmlDocument);
-                //渲染
-                Xonomy.render(xmlDocument, $("#container")[0], docSpec);
-            } catch (e) {
-                console.log(e);
-                alert('Config error!');
-            }
-        });
-        $("#export").click(function () {
-            var value = Xonomy.harvest();
-            var xmlDocument = $.parseXML(value);
-            //修正内容
-            Menu.exportFix(xmlDocument);
-            //打印
-            $("#out").text(Menu.formatXml(Menu.convertXmlDocumentToString(xmlDocument)));
-
-            //启用一些按钮
-            $("#select").attr("disabled", false);
-        });
-        $("#select").click(function () {
-            $("#out").select();
-        });
-        $("#toggle").click(function () {
-            Menu.toggleMode();
-        });
-
-        $(function () {
-            $("#in").val("<menu title=''></menu>");
-            $("#import").click();
-        });
-
-        var origin = docSpec.onchange;
-        docSpec.onchange = function () {
-            //先调用原来的
-            origin();
-
-            //禁用一些按钮
-            $("#select").attr("disabled", true);
-        }
-    </script>
-
     <div id="main-logo">
         <span>©2017</span>
         <span>by</span>
-        <a href="http://www.kongkongye.com" target="_blank">kongkongye</a>
+        <a id="logo" href="http://www.kongkongye.com" target="_blank">kongkongye</a>
     </div>
 </body>
 </html>
