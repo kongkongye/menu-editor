@@ -295,6 +295,11 @@ window.docSpec = (function () {
                             {caption: '无操作', value: 'stay'},
                             {caption: '刷新页面', value: 'refresh'},
                         ]
+                    },
+                    'optional': {
+                        displayName: '可选变量',
+                        menu: attrMenus("可选输入变量列表,多个值以','分隔"),
+                        asker: Xonomy.askString,
                     }
                 },
                 menu: [
@@ -305,6 +310,7 @@ window.docSpec = (function () {
                             addAttr('样式', 'style', ''),
                             addAttr('命令', 'cmd', ''),
                             addAttr('模式', 'mode', 'stay'),
+                            addAttr('可选变量', 'optional', ''),
                         ]
                     },
                     delEle,

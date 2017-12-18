@@ -295,6 +295,11 @@ window.docSpec = (function () {
                             {caption: 'no action', value: 'stay'},
                             {caption: 'refresh page', value: 'refresh'},
                         ]
+                    },
+                    'optional': {
+                        displayName: 'optional',
+                        menu: attrMenus("optional input param list, multiple value is separated by ','"),
+                        asker: Xonomy.askString,
                     }
                 },
                 menu: [
@@ -305,6 +310,7 @@ window.docSpec = (function () {
                             addAttr('style', 'style', ''),
                             addAttr('command', 'cmd', ''),
                             addAttr('mode', 'mode', 'stay'),
+                            addAttr('optional', 'optional', ''),
                         ]
                     },
                     delEle,
